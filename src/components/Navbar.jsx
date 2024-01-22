@@ -40,8 +40,8 @@ function Navbar() {
             isPending
               ? "pending"
               : isActive
-              ? " block py-1 lg:py-2 pl-3 pr-4 md:bg-transparent  md:p-0 text-primary mx-1.5 sm:mx-6"
-              : " block py-1 lg:py-2 pl-3 pr-4 md:bg-transparent text-secondary hover:text-primary md:p-0 mx-1.5 sm:mx-6"
+              ? " block py-1 lg:py-2 pl-3 pr-4 md:bg-transparent  md:p-0 text-[#03045e] mx-1.5 sm:mx-6 font-bold"
+              : " block py-1 lg:py-2 pl-3 pr-4 md:bg-transparent text-primary hover:text-[#03045e] md:p-0 mx-1.5 sm:mx-6"
           }
         >
           Home
@@ -54,8 +54,8 @@ function Navbar() {
             isPending
               ? "pending"
               : isActive
-              ? " block py-1 lg:py-2 pl-3 pr-4 md:bg-transparent  md:p-0 text-primary mx-1.5 sm:mx-6"
-              : " block py-1 lg:py-2 pl-3 pr-4 md:bg-transparent text-secondary hover:text-primary md:p-0 mx-1.5 sm:mx-6"
+              ? " block py-1 lg:py-2 pl-3 pr-4 md:bg-transparent  md:p-0 text-[#03045e] mx-1.5 sm:mx-6 font-bold"
+              : " block py-1 lg:py-2 pl-3 pr-4 md:bg-transparent text-primary hover:text-[#03045e] md:p-0 mx-1.5 sm:mx-6"
           }
         >
           Bookings
@@ -68,8 +68,8 @@ function Navbar() {
             isPending
               ? "pending"
               : isActive
-              ? " block py-1 lg:py-2 pl-3 pr-4 md:bg-transparent  md:p-0 text-primary mx-1.5 sm:mx-6"
-              : " block py-1 lg:py-2 pl-3 pr-4 md:bg-transparent text-secondary hover:text-primary md:p-0 mx-1.5 sm:mx-6"
+              ? " block py-1 lg:py-2 pl-3 pr-4 md:bg-transparent  md:p-0 text-[#03045e] mx-1.5 sm:mx-6 font-bold"
+              : " block py-1 lg:py-2 pl-3 pr-4 md:bg-transparent text-primary hover:text-[#03045e] md:p-0 mx-1.5 sm:mx-6"
           }
         >
           About Us
@@ -82,8 +82,8 @@ function Navbar() {
             isPending
               ? "pending"
               : isActive
-              ? " block py-1 lg:py-2 pl-3 pr-4 md:bg-transparent  md:p-0 text-primary mx-1.5 sm:mx-6"
-              : " block py-1 lg:py-2 pl-3 pr-4 md:bg-transparent text-secondary hover:text-primary md:p-0 mx-1.5 sm:mx-6"
+              ? " block py-1 lg:py-2 pl-3 pr-4 md:bg-transparent  md:p-0 text-[#03045e] mx-1.5 sm:mx-6 font-bold"
+              : " block py-1 lg:py-2 pl-3 pr-4 md:bg-transparent text-primary hover:text-[#03045e] md:p-0 mx-1.5 sm:mx-6"
           }
         >
           Contact Us
@@ -124,7 +124,7 @@ function Navbar() {
 
   return (
     <nav
-      className={` bg-orangeColor shadow shadow-secondary z-50 border-b-2 border-b-primary  ${
+      className={` bg-orangeColor shadow shadow-lightColor z-50 border-b-2 border-orangeColor  ${
         isSticky ? "sticky top-0" : ""
       }`}
     >
@@ -140,7 +140,7 @@ function Navbar() {
                 WebkitTextFillColor: "transparent",
               }}
             >
-              OME HUNTER
+              OUSE HUNTER
             </h2>
           </Link>
           <div className="flex gap-2 lg:hidden">

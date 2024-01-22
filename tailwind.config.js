@@ -6,7 +6,7 @@ export default {
       colors: {
         primary: "#023047",
         secondary: "#219ebc",
-        orangeColor: "#ff9e2fe7",
+        orangeColor: "#fb8500",
         darkYellow: "#ffb703",
         lightColor: "#8ecae6",
       },
