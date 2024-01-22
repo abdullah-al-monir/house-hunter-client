@@ -30,9 +30,9 @@ const Dashboard = () => {
       >
         <div className="p-5">
           <div className="flex items-center mb-4">
-            <img className="h-20" src={logo} alt="" />
-            <div className="text-3xl font-extrabold uppercase">
-              ouse <br />
+            <img className="h-[72px]" src={logo} alt="" />
+            <div className="text-4xl font-extrabold uppercase">
+              <span className="tracking-[8.5px]">ouse</span> <br />
               unter
             </div>
           </div>

@@ -131,9 +131,9 @@ function Navbar() {
       <div className="container px-6 py-4 mx-auto lg:flex lg:justify-between lg:items-center">
         <div className="flex items-center justify-between">
           <Link to="/" className="flex items-center">
-            <img className="w-auto h-7" src={logo} alt="" />
+            <img className="w-auto h-[23px]" src={logo} alt="" />
             <h2
-              className="font-bold text-3xl uppercase stylish"
+              className="font-extrabold text-3xl uppercase stylish"
               style={{
                 background: `linear-gradient(90deg, #023047, #219ebc)`,
                 WebkitBackgroundClip: "text",
