@@ -5,6 +5,8 @@ import Dashboard from "../layouts/Dashboard";
 import About from "../pages/About/About";
 import Contact from "../pages/Contact/Contact";
 import Booking from "../pages/Booking/Booking";
+import Login from "../pages/Login/Login";
+import Register from "../pages/Register/Register";
 
 const Route = createBrowserRouter([
   {
@@ -35,6 +37,14 @@ const Route = createBrowserRouter([
       },
     ],
   },
+  {
+    path:"login",
+    element: <Login/>
+  },
+  {
+    path: "register",
+    element: <Register/>
+  }
 ]);
 
 export default Route;

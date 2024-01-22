@@ -133,7 +133,7 @@ function Navbar() {
           <Link to="/" className="flex items-center">
             <img className="w-auto h-[23px]" src={logo} alt="" />
             <h2
-              className="font-extrabold text-3xl uppercase stylish"
+              className="font-bold text-3xl uppercase"
               style={{
                 background: `linear-gradient(90deg, #023047, #219ebc)`,
                 WebkitBackgroundClip: "text",
