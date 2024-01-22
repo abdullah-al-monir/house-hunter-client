@@ -1,5 +1,7 @@
 import { useRef } from "react";
 import logo from "../../assets/house-hunter-logo.png";
+import { Link } from "react-router-dom";
+import { enqueueSnackbar } from "notistack";
 const Login = () => {
   const emailRef = useRef();
   const passwordRef = useRef();
@@ -8,6 +10,16 @@ const Login = () => {
     const email = emailRef.current.value;
     const password = passwordRef.current.value;
     console.log(email, password);
+    if (email === "" || password === "") {
+      return enqueueSnackbar("Please fill all the field", {
+        variant: "error",
+        autoHideDuration: 1000,
+        anchorOrigin: {
+          vertical: "top",
+          horizontal: "center",
+        },
+      });
+    }
   };
   return (
     <div className="flex justify-center items-center min-h-screen">
@@ -29,37 +41,49 @@ const Login = () => {
               </div>
               <form onSubmit={handleLogin} className="mt-6 space-y-2">
                 <div>
-                  <label className="sr-only">Email</label>
+                  <label className="text-primary">Email</label>
                   <input
                     type="email"
                     ref={emailRef}
-                    className="block w-full px-5 py-3 text-base text-neutral-600 placeholder-gray-300 transition duration-500 ease-in-out transform border border-transparent rounded-lg bg-gray-50 focus:outline-none focus:border-transparent focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-300"
+                    className="block w-full px-5 py-3 text-base text-neutral-600 placeholder-gray-300 transition duration-500 ease-in-out transform border border-transparent rounded-lg bg-gray-50 focus:outline-none focus:border-transparent focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-300 mt-2"
                     placeholder="Enter your email"
+                    required
                   />
                 </div>
                 <div>
-                  <label className="sr-only">Password</label>
+                  <label className="text-primary">Password</label>
                   <input
                     type="password"
                     ref={passwordRef}
-                    className="block w-full px-5 py-3 text-base text-neutral-600 placeholder-gray-300 transition duration-500 ease-in-out transform border border-transparent rounded-lg bg-gray-50 focus:outline-none focus:border-transparent focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-300"
+                    className="block w-full px-5 py-3 text-base text-neutral-600 placeholder-gray-300 transition duration-500 ease-in-out transform border border-transparent rounded-lg bg-gray-50 focus:outline-none focus:border-transparent focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-300 mt-2"
                     placeholder="Enter your password"
+                    required
                   />
                 </div>
                 <div className="flex flex-col mt-4 lg:space-y-2">
+                  <a
+                    href="#"
+                    type="button"
+                    className="inline-flex justify-center  text-base font-medium text-gray-500 focus:outline-none hover:text-neutral-600 focus:text-blue-600 sm:text-sm"
+                  >
+                    Forgot your Password?{" "}
+                  </a>
                   <button
                     type="submit"
                     className="flex items-center justify-center w-full py-4 font-medium text-center text-white transition duration-500 ease-in-out transform bg-gradient-to-r from-primary to-secondary hover:bg-gradient-to-r hover:from-secondary hover:to-primary rounded-xl "
                   >
                     Login
                   </button>
-                  <a
-                    href="#"
-                    type="button"
-                    className="inline-flex justify-center py-4 text-base font-medium text-gray-500 focus:outline-none hover:text-neutral-600 focus:text-blue-600 sm:text-sm"
-                  >
-                    Forgot your Password?{" "}
-                  </a>
+
+                  <p className="inline-flex justify-center text-base font-medium text-gray-500 focus:outline-none hover:text-neutral-600 focus:text-blue-600 sm:text-sm py-5">
+                    Don't have account?{" "}
+                    <Link
+                      to="/register"
+                      className="text-primary font-semibold ml-1"
+                    >
+                      Register
+                    </Link>
+                  </p>
                 </div>
               </form>
             </div>
