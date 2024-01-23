@@ -7,6 +7,10 @@ import Contact from "../pages/Contact/Contact";
 import Booking from "../pages/Booking/Booking";
 import Login from "../pages/Login/Login";
 import Register from "../pages/Register/Register";
+import Profile from "../pages/Profile/Profile";
+import AddHouse from "../pages/OwnerDashboard/AddHouse";
+import ManageHouses from "../pages/OwnerDashboard/ManageHouses";
+import ManageBookings from "../pages/OwnerDashboard/ManageBookings";
 
 const Route = createBrowserRouter([
   {
@@ -35,16 +39,32 @@ const Route = createBrowserRouter([
         path: "/dashboard/bookings",
         element: <Booking />,
       },
+      {
+        path: "/dashboard/profile",
+        element: <Profile />,
+      },
+      {
+        path: "/dashboard/addHouse",
+        element: <AddHouse />,
+      },
+      {
+        path: "/dashboard/manageHouses",
+        element: <ManageHouses />,
+      },
+      {
+        path: "/dashboard/manageBookings",
+        element: <ManageBookings />,
+      },
     ],
   },
   {
-    path:"login",
-    element: <Login/>
+    path: "login",
+    element: <Login />,
   },
   {
     path: "register",
-    element: <Register/>
-  }
+    element: <Register />,
+  },
 ]);
 
 export default Route;

@@ -11,6 +11,7 @@ const AuthProvider = ({ children }) => {
     const storedUser = localStorage.getItem("user");
     return storedUser ? JSON.parse(storedUser) : null;
   });
+  const [loading, setLoading] = useState(true);
   useEffect(() => {
     if (email) {
       localStorage.setItem("email", email);
@@ -22,11 +23,13 @@ const AuthProvider = ({ children }) => {
   useEffect(() => {
     if (user) {
       localStorage.setItem("user", JSON.stringify(user));
+      setLoading(false)
     } else {
       localStorage.removeItem("user");
+      setLoading(false)
     }
   }, [user]);
-  const { data: userInfo, isLoading: loading } = useQuery({
+  const { data: userInfo } = useQuery({
     queryKey: ["user"],
     enabled: !!email,
     queryFn: async () => {
@@ -37,8 +40,8 @@ const AuthProvider = ({ children }) => {
   useEffect(() => {
     setUser(userInfo);
   }, [userInfo]);
-
-  const authInfo = { user, email, setEmail, loading,setUser };
+  
+  const authInfo = { user, email, setEmail, setUser, loading };
   return (
     <AuthContext.Provider value={authInfo}>{children}</AuthContext.Provider>
   );

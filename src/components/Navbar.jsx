@@ -6,7 +6,7 @@ import useAuth from "../hooks/useAuth";
 import { enqueueSnackbar } from "notistack";
 
 function Navbar() {
-  const { user } = useAuth();
+  const { user, loading } = useAuth();
   const [isOpen, setIsOpen] = useState(false);
   const [isSticky, setIsSticky] = useState(false);
   const navigate = useNavigate();
@@ -216,7 +216,7 @@ function Navbar() {
           </ul>
         </div>
         <div>
-          {/* {loading ? (
+          {loading ? (
             <div>
               <img
                 className="h-14 mx-auto"
@@ -224,8 +224,7 @@ function Navbar() {
                 alt=""
               />
             </div>
-          ) : */}
-          {user ? (
+          ) : user ? (
             <div className="lg:flex items-center gap-2 hidden ">
               <div className="group inline-block relative">
                 <img className="w-14 h-14 rounded-full" src={user?.dp} alt="" />

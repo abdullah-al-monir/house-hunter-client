@@ -224,13 +224,6 @@ const Register = () => {
                   >
                     Register
                   </button>
-                  {/* <a
-                    href="#"
-                    type="button"
-                    className="inline-flex justify-center py-4 text-base font-medium text-gray-500 focus:outline-none hover:text-neutral-600 focus:text-blue-600 sm:text-sm"
-                  >
-                    Forgot your Password?{" "}
-                  </a> */}
                 </div>
               </form>
             </div>

@@ -134,6 +134,9 @@ const Houses = () => {
               <option value="20000-25000">20,000-25,000</option>
               <option value="25000-30000">25,000-30,000</option>
               <option value="30000-35000">30,000-35,000</option>
+              <option value="35000-40000">35,000-40,000</option>
+              <option value="40000-45000">40,000-45,000</option>
+              <option value="45000-50000">45,000-50,000</option>
             </select>
           </div>
         </div>
