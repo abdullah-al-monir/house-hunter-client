@@ -2,15 +2,21 @@ import { useRef } from "react";
 import logo from "../../assets/house-hunter-logo.png";
 import { Link } from "react-router-dom";
 import { enqueueSnackbar } from "notistack";
+import useAxiosPublic from "../../hooks/useAxiosPublic";
+import useAuth from "../../hooks/useAuth";
+import { useNavigate } from "react-router-dom";
 const Login = () => {
+  const axiosPublic = useAxiosPublic();
+  const { setEmail } = useAuth();
   const emailRef = useRef();
   const passwordRef = useRef();
+  const navigate = useNavigate();
   const handleLogin = (e) => {
     e.preventDefault();
-    const email = emailRef.current.value;
+    const enteredEmail = emailRef.current.value;
     const password = passwordRef.current.value;
-    console.log(email, password);
-    if (email === "" || password === "") {
+    console.log(enteredEmail, password);
+    if (enteredEmail === "" || password === "") {
       return enqueueSnackbar("Please fill all the field", {
         variant: "error",
         autoHideDuration: 1000,
@@ -20,6 +26,24 @@ const Login = () => {
         },
       });
     }
+    axiosPublic
+      .post("/login", { email: enteredEmail, password })
+      .then((res) => {
+        setEmail(enteredEmail);
+        const { token } = res.data;
+        localStorage.setItem("token", token);
+        enqueueSnackbar("User logged in successfully", {
+          variant: "success",
+          autoHideDuration: 1000,
+          anchorOrigin: {
+            vertical: "top",
+            horizontal: "center",
+          },
+        });
+        emailRef.current.value = "";
+        passwordRef.current.value = "";
+        navigate("/");
+      });
   };
   return (
     <div className="flex justify-center items-center min-h-screen">
