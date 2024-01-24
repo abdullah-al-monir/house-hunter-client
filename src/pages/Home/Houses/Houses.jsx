@@ -29,7 +29,7 @@ const Houses = () => {
       setLoading(false);
     });
   }, [axiosPublic, city, bedrooms, bathrooms, totalRooms, search, rentRange]);
-  const cardsPerPage = 9;
+  const cardsPerPage = 10;
   const totalSlides = Math.ceil(houses.length / cardsPerPage);
   const slides = Array.from({ length: totalSlides }, (_, index) => index);
   const [swiper, setSwiper] = useState(null);
@@ -69,7 +69,7 @@ const Houses = () => {
   };
 
   return (
-    <div className="my-20 max-w-screen-xl mx-auto">
+    <div className="my-20 max-w-screen-xl mx-auto px-5">
       <Title
         heading={"Discover Your Dream Rental Home"}
         subHeading={"Your Next Home Awaits – Start Your Search Now!"}

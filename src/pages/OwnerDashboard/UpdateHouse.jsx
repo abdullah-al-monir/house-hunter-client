@@ -1,5 +1,4 @@
-import { useState } from "react";
-import useAuth from "../../hooks/useAuth";
+import { useLoaderData } from "react-router-dom";
 import { BsCalendar3 } from "react-icons/bs";
 import { AiOutlineCloseSquare } from "react-icons/ai";
 import DatePicker from "react-date-picker";
@@ -9,22 +8,37 @@ import Title from "../../components/Title";
 import { enqueueSnackbar } from "notistack";
 import useAxiosPublic from "../../hooks/useAxiosPublic";
 import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 const dp_hosting_key = import.meta.env.VITE_DP_HOSTING_KEY;
 const dp_hosting_api = `https://api.imgbb.com/1/upload?key=${dp_hosting_key}`;
-const AddHouse = () => {
-  const { user } = useAuth();
-  const [selectedCity, setSelectedCity] = useState("");
-  const [value, onChange] = useState("");
+const UpdateHouse = () => {
+  const {
+    _id,
+    houseName,
+    city,
+    ownerName,
+    ownerEmail,
+    contactNumber,
+    rentPerMonth,
+    availability,
+    description,
+    location,
+    bedrooms,
+    bathrooms,
+    image,
+    homeSizeSqFt,
+  } = useLoaderData();
+  console.log(homeSizeSqFt, availability);
+  const [selectedCity, setSelectedCity] = useState(city);
+  const [dateValue, onChange] = useState(availability);
   const [isValidPhoneNumber, setIsValidPhoneNumber] = useState(true);
   const [errorMessage, setErrorMessage] = useState("");
   const axiosPublic = useAxiosPublic();
-
   const navigate = useNavigate();
   const handleCityChange = (event) => {
     setSelectedCity(event.target.value);
   };
-
-  const handleAddHouse = (event) => {
+  const handleUpdateHouse = (event) => {
     event.preventDefault();
     const formData = new FormData(event.target);
     const houseName = formData.get("houseName");
@@ -64,80 +78,109 @@ const AddHouse = () => {
       return;
     }
     const imageInfo = { image: formData.get("photo") };
-    if (!imageInfo) {
-      return enqueueSnackbar("Please select a photo", {
-        variant: "error",
-        autoHideDuration: 1000,
-        anchorOrigin: {
-          vertical: "top",
-          horizontal: "center",
-        },
-      });
-    }
     console.log(imageInfo);
-    axiosPublic
-      .post(dp_hosting_api, imageInfo, {
-        headers: {
-          "content-type": "multipart/form-data",
-        },
-      })
-      .then((res) => {
-        if (res.data.success) {
-          const image = res.data.data.display_url;
-          const houseInfo = {
-            houseName,
-            city: selectedCity,
-            ownerName: user?.name,
-            ownerEmail: user?.email,
-            contactNumber: number,
-            rentPerMonth,
-            availability,
-            description,
-            location,
-            bedrooms,
-            bathrooms,
-            totalRooms: bedrooms + bathrooms,
-            image,
-            homeSizeSqFt,
-          };
-          axiosPublic
-            .post("/houses", houseInfo)
-            .then((res) => {
-              console.log(res.data);
-              if (res.data.insertedId) {
-                enqueueSnackbar("New house added successfully", {
-                  variant: "success",
-                  autoHideDuration: 1000,
-                  anchorOrigin: {
-                    vertical: "top",
-                    horizontal: "center",
-                  },
-                });
-                event.target.reset();
-                navigate("/dashboard/manageHouses");
-              }
-            })
-            .catch((error) => {
-              console.log(error);
+    if (imageInfo.image.name === "") {
+      const houseInfo = {
+        houseName,
+        city: selectedCity,
+        ownerName,
+        ownerEmail,
+        contactNumber: number,
+        rentPerMonth,
+        availability,
+        description,
+        location,
+        bedrooms,
+        bathrooms,
+        totalRooms: bedrooms + bathrooms,
+        image,
+        homeSizeSqFt,
+      };
+      axiosPublic
+        .put(`/house/${_id}`, houseInfo)
+        .then((res) => {
+          console.log(res.data);
+          if (res.data.modifiedCount > 0) {
+            enqueueSnackbar("House info updated successfully", {
+              variant: "success",
+              autoHideDuration: 1000,
+              anchorOrigin: {
+                vertical: "top",
+                horizontal: "center",
+              },
             });
-        }
-      })
-      .catch((err) => console.log(err));
+            event.target.reset();
+            navigate("/dashboard/manageHouses");
+          }
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    } else {
+      axiosPublic
+        .post(dp_hosting_api, imageInfo, {
+          headers: {
+            "content-type": "multipart/form-data",
+          },
+        })
+        .then((res) => {
+          if (res.data.success) {
+            const image = res.data.data.display_url;
+            const houseInfo = {
+              houseName,
+              city: selectedCity,
+              ownerName,
+              ownerEmail,
+              contactNumber: number,
+              rentPerMonth,
+              availability,
+              description,
+              location,
+              bedrooms,
+              bathrooms,
+              totalRooms: bedrooms + bathrooms,
+              image,
+              homeSizeSqFt,
+            };
+            axiosPublic
+              .put(`/houses/${_id}`, houseInfo)
+              .then((res) => {
+                console.log(res.data);
+                if (res.data.modifiedCount > 0) {
+                  enqueueSnackbar("House info updated successfully", {
+                    variant: "success",
+                    autoHideDuration: 1000,
+                    anchorOrigin: {
+                      vertical: "top",
+                      horizontal: "center",
+                    },
+                  });
+                  event.target.reset();
+                  navigate("/dashboard/manageHouses");
+                }
+              })
+              .catch((error) => {
+                console.log(error);
+              });
+          }
+        })
+        .catch((err) => console.log(err));
+    }
   };
-
   return (
     <div>
       <Title
-        heading={"Add New House"}
-        subHeading={"You can add a new house for rent by fill up the form"}
+        heading={"Update the House info"}
+        subHeading={"You can update any info using this form"}
       />
-      <form onSubmit={handleAddHouse}>
+      <form onSubmit={handleUpdateHouse}>
         <div className="grid grid-cols-1 gap-6 mt-4 sm:grid-cols-2">
           <div>
             <label className="text-gray-700">House Name</label>
             <input
               type="text"
               name="houseName"
+              defaultValue={houseName}
               className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-black   focus:border-secondary focus:ring-secondary focus:ring-opacity-40  focus:outline-none focus:ring"
               placeholder="Enter the house name"
               required
@@ -147,7 +190,7 @@ const AddHouse = () => {
             <label className="text-gray-700">Posted by</label>
             <input
               type="text"
-              defaultValue={user?.name}
+              defaultValue={ownerName}
               name="ownerName"
               className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-black   focus:border-secondary focus:ring-secondary focus:ring-opacity-40  focus:outline-none focus:ring"
               disabled
@@ -178,6 +221,7 @@ const AddHouse = () => {
             <input
               type="text"
               name="rentPerMonth"
+              defaultValue={rentPerMonth}
               className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-black   focus:border-secondary focus:ring-secondary focus:ring-opacity-40  focus:outline-none focus:ring"
               placeholder="Enter the house rent per month"
               required
@@ -190,6 +234,7 @@ const AddHouse = () => {
             <input
               type="text"
               name="number"
+              defaultValue={contactNumber}
               placeholder="+88017XXXXXXXX"
               className={`block w-full px-4 py-2 mt-2 text-gray-700 bg-white border ${
                 isValidPhoneNumber ? "border-black" : "border-red-500"
@@ -205,6 +250,7 @@ const AddHouse = () => {
             <input
               type="text"
               name="location"
+              defaultValue={location}
               placeholder="Enter the house location"
               className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-black  focus:border-secondary focus:ring-secondary focus:ring-opacity-40  focus:outline-none focus:ring"
             />
@@ -214,11 +260,11 @@ const AddHouse = () => {
               House Area Size (in Square Feet)
             </label>
             <input
-              type="number"
+              type="text"
               name="homeSizeSqFt"
+              defaultValue={homeSizeSqFt}
               className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-black  focus:border-secondary focus:ring-secondary focus:ring-opacity-40  focus:outline-none focus:ring"
               placeholder="Write the house area in square feet"
-              required
             />
           </div>
           <div>
@@ -226,6 +272,7 @@ const AddHouse = () => {
             <input
               type="number"
               name="bedrooms"
+              defaultValue={bedrooms}
               className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-black  focus:border-secondary focus:ring-secondary focus:ring-opacity-40  focus:outline-none focus:ring"
               placeholder="Number of bedrooms"
             />
@@ -235,6 +282,7 @@ const AddHouse = () => {
             <input
               type="number"
               name="bathrooms"
+              defaultValue={bathrooms}
               className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-black  focus:border-secondary focus:ring-secondary focus:ring-opacity-40  focus:outline-none focus:ring"
               placeholder="Number of bathrooms"
             />
@@ -245,6 +293,7 @@ const AddHouse = () => {
             <DatePicker
               className="block w-full my-2 text-gray-700 bg-white   focus:border-secondary focus:ring-secondary focus:ring-opacity-40  focus:outline-none focus:ring"
               name="availability"
+              defaultValue={availability}
               calendarIcon={
                 <BsCalendar3 className="text-secondary text-xl my-1" />
               }
@@ -257,7 +306,7 @@ const AddHouse = () => {
               minDate={new Date()}
               format="y-MM-dd"
               onChange={onChange}
-              value={value}
+              value={dateValue}
               required
             />
           </div>
@@ -266,6 +315,7 @@ const AddHouse = () => {
             <input
               type="text"
               name="description"
+              defaultValue={description}
               className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-black  focus:border-secondary focus:ring-secondary focus:ring-opacity-40  focus:outline-none focus:ring"
               placeholder="Write the house description"
             />
@@ -286,7 +336,7 @@ const AddHouse = () => {
         <div className=" mt-6">
           <input
             type="submit"
-            value="Add"
+            value="Update"
             className="px-8 py-2.5 w-full leading-5 text-white transition-colors duration-300 font-semibold transform bg-secondary rounded-md hover:bg-primary focus:outline-none focus:bg-secondary"
           />
         </div>
@@ -295,4 +345,4 @@ const AddHouse = () => {
   );
 };
 
-export default AddHouse;
+export default UpdateHouse;

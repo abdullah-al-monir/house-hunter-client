@@ -23,22 +23,20 @@ const ManageHouses = () => {
     },
   });
   const handleDeleteHouse = (id) => {
-    axiosPublic
-      .delete(`/houses/${id}`)
-      .then((res) => {
-        console.log(res.data);
-        if (res.data.deletedCount > 0) {
-          enqueueSnackbar("You have deleted the house info successfully", {
-            variant: "success",
-            autoHideDuration: 1000,
-            anchorOrigin: {
-              vertical: "top",
-              horizontal: "center",
-            },
-          });
-          refetch();
-        }
-      });
+    axiosPublic.delete(`/house/${id}`).then((res) => {
+      console.log(res.data);
+      if (res.data.deletedCount > 0) {
+        enqueueSnackbar("You have deleted the house info successfully", {
+          variant: "success",
+          autoHideDuration: 1000,
+          anchorOrigin: {
+            vertical: "top",
+            horizontal: "center",
+          },
+        });
+        refetch();
+      }
+    });
   };
   return (
     <div>
@@ -132,7 +130,7 @@ const ManageHouses = () => {
                                 </p>
                               </td>
                               <td className="lg:py-4 md:text-lg font-semibold text-center">
-                                <Link to={`/update/${house._id}`}>
+                                <Link to={`/dashboard/update/${house._id}`}>
                                   <button className="mr-5 text-secondary hover:text-primary">
                                     <FaEdit />
                                   </button>

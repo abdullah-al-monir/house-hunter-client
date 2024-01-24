@@ -1,27 +1,10 @@
-import { Navigate, useLocation } from "react-router-dom";
-import BeatLoader from "react-spinners/BeatLoader";
+import { Navigate, Outlet } from "react-router-dom";
 import useAuth from "../hooks/useAuth";
-const PrivateRoute = ({ children }) => {
-  const { user, loading } = useAuth();
-  const location = useLocation();
-  if (loading) {
-    return (
-      <div
-        style={{
-          height: "100vh",
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-        }}
-      >
-        <BeatLoader style={{ color: "#082f63" }} />
-      </div>
-    );
-  }
-  if (user) {
-    return children;
-  }
-  return <Navigate to="/login" state={{ from: location }}></Navigate>;
+
+const PrivateRoute = () => {
+  const user = useAuth();
+  if (!user.token) return <Navigate to="/login" />;
+  return <Outlet />;
 };
 
 export default PrivateRoute;

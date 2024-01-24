@@ -7,7 +7,7 @@ import useAuth from "../../hooks/useAuth";
 import { useNavigate } from "react-router-dom";
 const Login = () => {
   const axiosPublic = useAxiosPublic();
-  const { setEmail } = useAuth();
+  const { setEmail, setUser } = useAuth();
   const emailRef = useRef();
   const passwordRef = useRef();
   const navigate = useNavigate();
@@ -28,10 +28,13 @@ const Login = () => {
     }
     axiosPublic
       .post("/login", { email: enteredEmail, password })
-      .then((res) => {
+      .then(async (res) => {
         setEmail(enteredEmail);
-        const { token } = res.data;
+
+        const { token, user } = await res.data;
+        setUser(user);
         localStorage.setItem("token", token);
+        localStorage.setItem("user", user);
         enqueueSnackbar("User logged in successfully", {
           variant: "success",
           autoHideDuration: 1000,

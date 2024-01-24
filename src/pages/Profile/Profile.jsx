@@ -21,12 +21,9 @@ const Profile = () => {
         </div>
         <div className="mt-5">
           <div>
-            <input
-              type="text"
-              className="text-center text-2xl font-semibold text-primary"
-              name="fullName"
-              value={user?.name}
-            />
+            <h3 className="text-center text-2xl font-semibold text-primary">
+              {user?.name}
+            </h3>
           </div>
           <div className="">
             <p className="uppercase text-orangeColor font-bold text-center">

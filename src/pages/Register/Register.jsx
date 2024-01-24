@@ -73,8 +73,9 @@ const Register = () => {
             })
             .then((res) => {
               setEmail(enteredEmail);
-              const { token } = res.data;
+              const { token, user } = res.data;
               localStorage.setItem("token", token);
+              localStorage.setItem("user", user);
               enqueueSnackbar("Registration successful!", {
                 variant: "success",
                 autoHideDuration: 1000,
@@ -89,14 +90,7 @@ const Register = () => {
               emailRef.current.value = "";
               passwordRef.current.value = "";
               navigate("/");
-              setUser({
-                name,
-                role,
-                number,
-                email: enteredEmail,
-                password,
-                dp,
-              });
+              setUser(user);
             })
             .catch((error) => {
               if (error.response && error.response.status === 400) {
@@ -220,7 +214,7 @@ const Register = () => {
                 <div className="flex flex-col mt-4 lg:space-y-2">
                   <button
                     type="submit"
-                    className="flex items-center justify-center w-full py-4 font-medium text-center text-white transition duration-500 ease-in-out transform bg-gradient-to-r from-primary to-secondary hover:bg-gradient-to-r hover:from-secondary hover:to-primary rounded-xl "
+                    className="w-full py-4 font-medium text-center text-white transition duration-500 ease-in-out transform bg-gradient-to-r from-primary to-secondary hover:bg-gradient-to-r hover:from-secondary hover:to-primary rounded-xl "
                   >
                     Register
                   </button>

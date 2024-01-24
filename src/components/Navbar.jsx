@@ -6,7 +6,7 @@ import useAuth from "../hooks/useAuth";
 import { enqueueSnackbar } from "notistack";
 
 function Navbar() {
-  const { user, loading } = useAuth();
+  const { user, pending, setUser } = useAuth();
   const [isOpen, setIsOpen] = useState(false);
   const [isSticky, setIsSticky] = useState(false);
   const navigate = useNavigate();
@@ -19,6 +19,7 @@ function Navbar() {
     localStorage.removeItem("token");
     localStorage.removeItem("email");
     localStorage.removeItem("user");
+    setUser(null);
     enqueueSnackbar("User logged out successfully", {
       variant: "success",
       autoHideDuration: 1000,
@@ -216,7 +217,7 @@ function Navbar() {
           </ul>
         </div>
         <div>
-          {loading ? (
+          {pending ? (
             <div>
               <img
                 className="h-14 mx-auto"

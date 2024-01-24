@@ -4,13 +4,14 @@ import Home from "../pages/Home/Home";
 import Dashboard from "../layouts/Dashboard";
 import About from "../pages/About/About";
 import Contact from "../pages/Contact/Contact";
-import Booking from "../pages/Booking/Booking";
 import Login from "../pages/Login/Login";
 import Register from "../pages/Register/Register";
 import Profile from "../pages/Profile/Profile";
 import AddHouse from "../pages/OwnerDashboard/AddHouse";
 import ManageHouses from "../pages/OwnerDashboard/ManageHouses";
 import ManageBookings from "../pages/OwnerDashboard/ManageBookings";
+import UpdateHouse from "../pages/OwnerDashboard/UpdateHouse";
+import Booking from "../pages/RenterDashboard/Booking/Booking";
 
 const Route = createBrowserRouter([
   {
@@ -36,24 +37,30 @@ const Route = createBrowserRouter([
     element: <Dashboard />,
     children: [
       {
-        path: "/dashboard/bookings",
+        path: "bookings",
         element: <Booking />,
       },
       {
-        path: "/dashboard/profile",
+        path: "profile",
         element: <Profile />,
       },
       {
-        path: "/dashboard/addHouse",
+        path: "addHouse",
         element: <AddHouse />,
       },
       {
-        path: "/dashboard/manageHouses",
+        path: "manageHouses",
         element: <ManageHouses />,
       },
       {
-        path: "/dashboard/manageBookings",
+        path: "manageBookings",
         element: <ManageBookings />,
+      },
+      {
+        path: "update/:id",
+        element: <UpdateHouse />,
+        loader: ({ params }) =>
+          fetch(`http://localhost:7000/house/${params.id}`),
       },
     ],
   },
