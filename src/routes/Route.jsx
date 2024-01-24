@@ -73,7 +73,7 @@ const Route = createBrowserRouter([
         path: "update/:id",
         element: <UpdateHouse />,
         loader: ({ params }) =>
-          fetch(`house-hunter-server-wheat-three.vercel.app/house/${params.id}`),
+          fetch(`https://house-hunter-server-wheat-three.vercel.app/house/${params.id}`),
       },
     ],
   },
