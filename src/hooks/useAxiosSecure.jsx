@@ -1,6 +1,6 @@
 import axios from "axios";
 const axiosSecure = axios.create({
-  baseURL: "http://localhost:7000",
+  baseURL: "house-hunter-server-wheat-three.vercel.app",
   withCredentials: true,
 });
 

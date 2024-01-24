@@ -1,8 +1,10 @@
-# React + Vite
+# Features
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+House Hunter - A house rent and searching site. Where there are two kinds of users. House Owner & House Renter. House renter can book any house till the availability date. In the hompage user can search for houses by keywords, also can use filter fo rent range, rooms number, city etc.
+There are 4 pages in navbar. Home, Bookings, About Us, Contact Us.
 
-Currently, two official plugins are available:
+House Renter Dashboard: In the house renter dashboard , users can see their profile info and also can see their bookings.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+House Owner Dashboard: In the house owner dashboard , users can see their profile info and also can see their posts which they posted to rent their houses. They also can see bookings in their houses and also can edit and delete selected houses.
+
+## Live LInk : https://house-hunter-d21c8.web.app

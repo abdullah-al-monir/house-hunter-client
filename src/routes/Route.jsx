@@ -12,6 +12,7 @@ import ManageHouses from "../pages/OwnerDashboard/ManageHouses";
 import ManageBookings from "../pages/OwnerDashboard/ManageBookings";
 import UpdateHouse from "../pages/OwnerDashboard/UpdateHouse";
 import Booking from "../pages/RenterDashboard/Booking/Booking";
+import PrivateRoute from "./PrivateRoute";
 
 const Route = createBrowserRouter([
   {
@@ -30,6 +31,14 @@ const Route = createBrowserRouter([
         path: "/contact",
         element: <Contact />,
       },
+      {
+        path: "login",
+        element: <Login />,
+      },
+      {
+        path: "register",
+        element: <Register />,
+      },
     ],
   },
   {
@@ -38,7 +47,11 @@ const Route = createBrowserRouter([
     children: [
       {
         path: "bookings",
-        element: <Booking />,
+        element: (
+          <PrivateRoute>
+            <Booking />
+          </PrivateRoute>
+        ),
       },
       {
         path: "profile",
@@ -60,17 +73,9 @@ const Route = createBrowserRouter([
         path: "update/:id",
         element: <UpdateHouse />,
         loader: ({ params }) =>
-          fetch(`http://localhost:7000/house/${params.id}`),
+          fetch(`house-hunter-server-wheat-three.vercel.app/house/${params.id}`),
       },
     ],
-  },
-  {
-    path: "login",
-    element: <Login />,
-  },
-  {
-    path: "register",
-    element: <Register />,
   },
 ]);
 

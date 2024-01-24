@@ -1,5 +1,5 @@
 import axios from "axios";
-const axiosPublic = axios.create({ baseURL: "http://localhost:7000" });
+const axiosPublic = axios.create({ baseURL: "house-hunter-server-wheat-three.vercel.app" });
 
 const useAxiosPublic = () => {
   return axiosPublic;

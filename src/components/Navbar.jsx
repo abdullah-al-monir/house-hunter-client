@@ -28,7 +28,7 @@ function Navbar() {
         horizontal: "center",
       },
     });
-    navigate("/login");
+    navigate("/");
   };
 
   useEffect(() => {

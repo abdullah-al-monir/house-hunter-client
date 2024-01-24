@@ -4,7 +4,7 @@ import { Link, NavLink, useNavigate, Outlet } from "react-router-dom";
 import useAuth from "../hooks/useAuth";
 import { enqueueSnackbar } from "notistack";
 const Dashboard = () => {
-  const { user } = useAuth();
+  const { user, setUser } = useAuth();
   const [isActive, setIsActive] = useState(true);
   const navigate = useNavigate();
   useEffect(() => {
@@ -32,7 +32,8 @@ const Dashboard = () => {
         horizontal: "center",
       },
     });
-    navigate("/login");
+    navigate("/");
+    setUser(null);
   };
   const dashboardPages = (
     <>
